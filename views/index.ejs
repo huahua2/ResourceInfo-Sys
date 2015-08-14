@@ -18,6 +18,7 @@
         <table class="table table-striped">
           <thead>
           <tr>
+              <th>序号</th>
             <th>姓名</th>
             <th>姓别</th>
             <th>职务</th>
@@ -34,6 +35,7 @@
           <% datos.forEach(function (v, k){ %>
 
           <tr>
+              <td><%= k+1 %></td>
           <td><%= v.username %></td>
           <td>男</td>
           <td>研究院主任</td>
