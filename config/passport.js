@@ -52,7 +52,7 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
                 if (err)
-                    return done(err);
+                    return done(null);
                 if (rows.length) {
                     return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
                 } else {
@@ -92,7 +92,7 @@ module.exports = function(passport) {
         function(req, username, password, done) { // callback with email and password from our form
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
                 if (err)
-                    return done(err);
+                    return done(null);
                 if (!rows.length) {
                     return done(null, false, req.flash('loginMessage', '用户名不存在')); // req.flash is the way to set flashdata using connect-flash
                 }
