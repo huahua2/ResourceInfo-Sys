@@ -1,0 +1,72 @@
+<% include header.ejs %>
+<% include top_nav.ejs %>
+
+
+<body style="padding-top:30px">
+<div class="container-fluid" >
+  <div class="row">
+      <% include left.ejs %>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+      <h2 class="sub-header">添加专家</h2>
+      <div  style="max-width:500px;margin-top:30px;">
+
+          <form class="form-horizontal">
+              <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="name" placeholder="姓名" autofocus required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="zhiwu" class="col-sm-2 control-label">职务</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="zhiwu" placeholder="职务">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="shouji" class="col-sm-2 control-label">手机</label>
+                  <div class="col-sm-10">
+                      <input type="tel" class="form-control" id="shouji" placeholder="手机">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="bgdh" class="col-sm-2 control-label">办公电话</label>
+                  <div class="col-sm-10">
+                      <input type="tel" class="form-control" id="bgdh" placeholder="办公电话" required >
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="yx" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-10">
+                      <input type="email" class="form-control" id="yx" placeholder="Email" required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="zhicheng" class="col-sm-2 control-label">头像</label>
+                  <div class="col-sm-10">
+                      <input type="file" id="exampleInputFile">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox"> Remember me
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary">保存</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% include footer.ejs %>

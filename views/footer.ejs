@@ -7,5 +7,25 @@
 <!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+<script>
+
+
+$(function(){
+
+
+    var menu = ["add_expert", "index"];
+    var chref = window.location.href.toLocaleLowerCase();
+    for (var i in menu) {
+        var reUrl = new RegExp("/" + menu[i]);
+        if (reUrl.test(chref))
+        {
+            $(".nav-sidebar li").removeClass("active");
+            $(".nav-sidebar li[name='" + menu[i] + "']").addClass("active");
+        }
+    }
+
+})
+
+</script>
 </body>
 </html>

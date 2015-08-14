@@ -5,22 +5,16 @@
 <body style="padding-top:30px">
 <div class="container-fluid" >
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">专家列表</a></li>
-        <li><a href="#">添加专家</a></li>
-      </ul>
-      <ul class="nav nav-sidebar">
-        <li><a href="">短信列表</a></li>
-        <li><a href="">模版配置</a></li>
-        <li><a href="">用户管理</a></li>
-      </ul>
-
-    </div>
+      <% include left.ejs %>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
       <h2 class="sub-header">专家列表</h2>
       <div class="table-responsive">
+          <style>
+              .table>tbody>tr>td{
+                  padding: 15px 8px;
+              }
+          </style>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -40,15 +34,15 @@
           <% datos.forEach(function (v, k){ %>
 
           <tr>
-            <td><%= v.UserAccount %></td>
-            <td>男</td>
-            <td>研究院主任</td>
-            <td>主任医师</td>
-            <td><%= v.Mobile %></td>
-            <td><%= v.Email %></td>
-            <td>康复学分会</td>
-            <td>123213213</td>
-            <td>123213213</td>
+          <td><%= v.username %></td>
+          <td>男</td>
+          <td>研究院主任</td>
+          <td>主任医师</td>
+          <td><%= v.username %></td>
+          <td><%= v.username %></td>
+          <td>康复学分会</td>
+          <td>123213213</td>
+          <td>123213213</td>
           </tr>
 
           <% }) %>
