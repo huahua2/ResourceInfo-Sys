@@ -1,0 +1,75 @@
+<% include header.ejs %>
+<% include top_nav.ejs %>
+<body style="padding-top:30px">
+<div class="container-fluid">
+    <div class="row">
+        <% include left.ejs %>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header"><%= title %></h2>
+
+            <div style="margin-top:30px;">
+                <style>
+                    dd, dt {
+                        padding: 10px 0;
+                    }
+
+                    dd {
+                        max-width: 500px
+                    }
+                </style>
+                <dl class="dl-horizontal">
+
+                    <dt>智库类别</dt>
+                    <dd> <%= expert.Category %></dd>
+
+                    <dt>类别细分项</dt>
+                    <dd> <%= expert.Sub_Category %></dd>
+
+                    <dt>单位</dt>
+                    <dd> <%= expert.Company %></dd>
+
+                    <dt>姓名</dt>
+                    <dd> <%= expert.UserName %></dd>
+
+                    <dt>职务</dt>
+                    <dd> <%= expert.Post %></dd>
+
+                    <dt>职称</dt>
+                    <dd> <%= expert.Title %></dd>
+
+                    <dt>手机</dt>
+                    <dd> <%= expert.Mobile %></dd>
+
+                    <dt>办公电话</dt>
+                    <dd> <%= expert.Office_Phone %></dd>
+
+                    <dt>邮箱</dt>
+                    <dd> <%= expert.Email %></dd>
+                    <dt>微信、QQ</dt>
+                    <dd> <%= expert.Social_Number %></dd>
+                    <dt>常驻办公地点</dt>
+                    <dd> <%= expert.Office_Add %></dd>
+
+                    <dt>既往业务联系情况</dt>
+                    <dd> <%= expert.Business_Contacts %></dd>
+
+                    <dt>主要业绩/荣誉阐述</dt>
+                    <dd> <%= expert.Main_Performance %></dd>
+
+                    <dt>对接联系人</dt>
+                    <dd> <%= expert.Docking_Contact %></dd>
+
+                    <dt>个人简介（含相片）</dt>
+                    <dd> <%= expert.Profile %></dd>
+
+                    <dt>备注</dt>
+                    <dd> <%= expert.Remarks %></dd>
+
+
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+</body><% include footer.ejs %>

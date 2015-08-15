@@ -89,6 +89,23 @@ module.exports = function(app, passport) {
         }
         );
     });
+
+    //专家详情页面，拦截除数字id外的字符
+    app.get(/^\/expert?(?:\/(\d+))/, isLoggedIn, function(req, res) {
+
+        logicdata.sel_expert_byid(req.params[0],function(rows){
+
+            res.render('expert.ejs', {
+                title: '专家详情',
+                user : req.user, // get the user out of session and pass to template
+                expert: rows[0],
+                id:req.params[0]
+            });
+        });
+    });
+
+
+
 };
 
 // route middleware to make sure

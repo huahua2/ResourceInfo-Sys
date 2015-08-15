@@ -11,7 +11,7 @@ connection.query('USE ' + dbconfig.database);
 function sel_userlist(successFun){
 
 
-     execQuery( "select * from users", function(rows){
+     execQuery( "select * from expert", function(rows){
 
         if (rows.length) {
             successFun(rows)
@@ -20,6 +20,22 @@ function sel_userlist(successFun){
         }
     }, function(err){        //error
         console.log("专家列表查询失败"+err);
+    });
+}
+
+//根据id获取专家详情
+function sel_expert_byid(id,successFun){
+
+    console.log(id);
+    execQuery( "select * from expert where id ="+id, function(rows){
+
+        if (rows.length) {
+            successFun(rows)
+        } else {
+            console.log("据id获取专家详情null");
+        }
+    }, function(err){        //error
+        console.log("据id获取专家详情"+err);
     });
 }
 
@@ -46,8 +62,8 @@ function execQuery( sql, successFun, errFun ){
 }
 
 var exports = {
-    sel_userlist: sel_userlist
-    //execQuery: execQuery
+    sel_userlist: sel_userlist,
+    sel_expert_byid: sel_expert_byid
 };
 
 module.exports = exports;

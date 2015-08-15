@@ -1,3 +1,12 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<% include header.ejs %>
+<body>
+<div class="container" style="padding-top: 70px;">
+    <div class="jumbotron">
+        <h2><%= message %></h2>
+        <p><%= error.status %></p>
+        <p><pre><%= error.stack %></pre></p>
+        <p><a class="btn btn-primary" href="/">Back</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -64,32 +64,7 @@
 //
 //
 //
-//// 404错误处理
-//app.use(function(req, res, next) {
-//  var err = new Error('Not Found');
-//  err.status = 404;
-//  next(err);
-//});
-//
-//// 开发环境，500错误处理和错误堆栈跟踪
-//if (app.get('env') === 'development') {
-//  app.use(function(err, req, res, next) {
-//    res.status(err.status || 500);
-//    res.render('error', {
-//      message: err.message,
-//      error: err
-//    });
-//  });
-//}
-//
-//// 生产环境，500错误处理
-//app.use(function(err, req, res, next) {
-//  res.status(err.status || 500);
-//  res.render('error', {
-//    message: err.message,
-//    error: {}
-//  });
-//});
+
 //
 //// routes ======================================================================
 //require('./routes/routes.js')(app, passport); //
@@ -107,6 +82,7 @@ var session  = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var path = require('path');
 var app      = express();
 var port     = process.env.PORT || 3000;
 
@@ -140,7 +116,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // routes ======================================================================
@@ -148,5 +124,37 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 
 // launch ======================================================================
 app.listen(port);
+
+
+// 404错误处理
+app.use(function(req, res, next) {
+  var err = new Error('找不到该页面');
+  err.status = 404;
+  next(err);
+});
+
+// 开发环境，500错误处理和错误堆栈跟踪
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+        title:err.message,
+      error: err
+    });
+  });
+}
+
+// 生产环境，500错误处理
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+      title:err.message,
+    error: {}
+  });
+});
+
+
 console.log('The magic happens on port ' + port);
 
