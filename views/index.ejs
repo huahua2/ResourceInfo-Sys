@@ -8,7 +8,7 @@
       <% include left.ejs %>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <h2 class="sub-header">专家列表</h2>
+      <h2 class="sub-header"><%= keyword %></h2>
       <div class="table-responsive">
           <style>
               .table>tbody>tr>td{
@@ -17,6 +17,8 @@
           </style>
         <table class="table table-striped" style="white-space: normal">
           <thead>
+
+          <% if(datos.length > 0) { %>
           <tr>
               <th>序号</th>
             <th>姓名</th>
@@ -25,8 +27,9 @@
             <th>手机号</th>
             <th>Email</th>
             <th>单位</th>
-            <th>详情</th>
+            <th>操作</th>
           </tr>
+          <%  } %>
           </thead>
           <tbody>
 
@@ -40,7 +43,9 @@
           <td><%= v.Mobile %></td>
           <td><%= v.Email %></td>
           <td style="max-width:120px;overflow:hidden"><%= v.Company%></td>
-          <td><a class="btn-link" href="/expert/<%= v.id %>">更多</a></td>
+          <td><a class="btn-link" href="/expert/<%= v.id %>">更多</a><br/>
+              <a class="btn-link" href="/edit/<%= v.id %>">编辑</a><br/>
+              <a class="btn-link" onclick="return confirm('确定要删除 “<%= v.UserName %>” 吗?') "  href="/del/<%= v.id %>">删除</a></td>
           </tr>
 
           <% }) %>

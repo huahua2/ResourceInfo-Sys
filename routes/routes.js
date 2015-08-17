@@ -11,11 +11,39 @@ module.exports = function(app, passport) {
                 res.render('index.ejs', {
                     title: '智库资源信息系统',
                     user : req.user, // get the user out of session and pass to template
-                    datos: rows
+                    datos: rows,
+                    keyword: "专家列表"
                 });
         });
 
 	});
+    //查询专家
+    app.get('/search/:keyword', isLoggedIn, function(req, res) {
+
+        logicdata.sel_expert_by_keyword(req.params.keyword,function(rows){
+
+            res.render('index.ejs', {
+                title: '智库资源信息系统',
+                user : req.user, // get the user out of session and pass to template
+                datos: rows,
+                keyword:"查到关键字 :" +"“"+ req.params.keyword +"”" +rows.length +" 条记录"
+            });
+        });
+
+    });
+    //删除专家
+    app.get('/del/:id', isLoggedIn, function(req, res) {
+
+        logicdata.del_expert_by_id(req.params.id,function(rows){
+
+
+            //console.log(rows.affectedRows)
+            if(rows.affectedRows===1)
+            res.redirect('/');
+
+        });
+
+    });
 
 	// =====================================
 	// LOGIN页面 ===============================

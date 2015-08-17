@@ -24,6 +24,16 @@ $(function(){
         }
     }
 
+    $("#expert-search").keydown(function (event) {
+            if (event.keyCode == 13) {
+                var keyword = $(this).val();
+                if(keyword=="")
+                    window.location.href = "/";
+                else
+                    window.location.href = "/search/" + encodeURIComponent(keyword);
+            }
+    });
+
 })
 
 </script>
