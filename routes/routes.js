@@ -1,5 +1,7 @@
 
 var logicdata = require('../logic/getdata');
+var formidable = require('formidable')
+fs = require('fs');
 module.exports = function(app, passport) {
 
 
@@ -132,7 +134,49 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.post('/uploadImg', function(req, res, next) {
+        var form = new formidable.IncomingForm();
+        form.keepExtensions = true;
+      //  form.uploadDir = __dirname + '/../public/images';
+        form.uploadDir = "./public/images/";//改变临时目录
+        form.parse(req, function(error, fields, files){
+            if (error) {
+                var info = [{
+                    "error": 1,
+                    "url": ""
+                }];
+                res.send(info);
+                return;
+            }
+            for(var key in files){
+                var file = files[key];
+                var fName = (new Date()).getTime();
+                switch (file.type){
+                    case "image/jpeg":
+                        fName = fName + ".jpg";
+                        break;
+                    case "image/png":
+                        fName = fName + ".png";
+                        break;
+                    default :
+                        fName =fName + ".png";
+                        break;
+                }
+                console.log(file.path);
+                var uploadDir = "./public/images/" + fName;
+                fs.renameSync(file.path, uploadDir);  //重命名
 
+                var info = [{
+                    "error": 0,
+                    "url": fName
+                }];
+                res.send(info);
+
+
+            }
+        });
+
+    });
 
 };
 

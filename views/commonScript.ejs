@@ -1,0 +1,37 @@
+<!-- Bootstrap core JavaScript
+  ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+<script>
+
+    $(function(){
+
+
+        var menu = ["add_expert", "index"];
+        var chref = window.location.href.toLocaleLowerCase();
+        for (var i in menu) {
+            var reUrl = new RegExp("/" + menu[i]);
+            if (reUrl.test(chref))
+            {
+                $(".nav-sidebar li").removeClass("active");
+                $(".nav-sidebar li[name='" + menu[i] + "']").addClass("active");
+            }
+        }
+
+        $("#expert-search").keydown(function (event) {
+            if (event.keyCode == 13) {
+                var keyword = $(this).val();
+                if(keyword=="")
+                    window.location.href = "/";
+                else
+                    window.location.href = "/search/" + encodeURIComponent(keyword);
+            }
+        });
+
+    })
+</script>
