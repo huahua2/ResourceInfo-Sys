@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
                     title: '智库资源信息系统',
                     user : req.user, // get the user out of session and pass to template
                     datos: rows,
-                    keyword: "专家列表"
+                    keyword: rows.length > 0 ? "专家列表" : "暂无数据"
                 });
         });
 

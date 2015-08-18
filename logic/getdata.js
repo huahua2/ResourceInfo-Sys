@@ -13,11 +13,8 @@ function sel_userlist(successFun){
 
      execQuery( "select * from expert",[], function(rows){
 
-        if (rows.length) {
             successFun(rows)
-                  } else {
-            console.log("专家列表查询失败");
-        }
+
     }, function(err){        //error
         console.log("专家列表查询失败"+err);
     });
