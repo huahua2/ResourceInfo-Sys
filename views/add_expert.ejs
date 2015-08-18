@@ -9,43 +9,120 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
       <h2 class="sub-header">添加专家</h2>
-      <div  style="max-width:500px;margin-top:30px;">
+      <div  style="max-width:700px;margin-top:30px;">
 
-          <form class="form-horizontal" action="" method="post">
-              <div class="form-group">
-                  <label for="name" class="col-sm-2 control-label">姓名</label>
-                  <div class="col-sm-10">
-                      <input type="text" class="form-control" id="name" placeholder="姓名" autofocus required>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="zhiwu" class="col-sm-2 control-label">职务</label>
-                  <div class="col-sm-10">
-                      <input type="text" class="form-control" id="zhiwu" placeholder="职务">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="shouji" class="col-sm-2 control-label">手机</label>
-                  <div class="col-sm-10">
-                      <input type="tel" class="form-control" id="shouji" placeholder="手机">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="bgdh" class="col-sm-2 control-label">办公电话</label>
-                  <div class="col-sm-10">
-                      <input type="tel" class="form-control" id="bgdh" placeholder="办公电话" required >
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="yx" class="col-sm-2 control-label">Email</label>
-                  <div class="col-sm-10">
-                      <input type="email" class="form-control" id="yx" placeholder="Email" required>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="zhicheng" class="col-sm-2 control-label">头像</label>
-                  <div class="col-sm-10">
 
+          <form id="addexpert-form" class="form-horizontal" action="/add_expert" method="post">
+              <% if (message.length > 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+              <% } %>
+
+              <div class="form-group">
+                  <label for="Category" class="col-sm-2 control-label">智库类别</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="user[Category]" name="Category" placeholder="必填" required>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Sub_Category" class="col-sm-2 control-label">类别细分项</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Sub_Category" name="Sub_Category" placeholder="必填" required>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Company" class="col-sm-2 control-label">单位</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Company" name="Company" placeholder="必填" required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="UserName" class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="user[UserName]" name="UserName" placeholder="必填" autofocus required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Post" class="col-sm-2 control-label">职务</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Post" name="Post" placeholder="必填" required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Title" class="col-sm-2 control-label">职称</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Title" name="Title" placeholder="必填" required>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Mobile" class="col-sm-2 control-label">手机</label>
+                  <div class="col-sm-10">
+                      <input type="tel" class="form-control" id="Mobile" name="Mobile" placeholder="必填" required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Office_Phone" class="col-sm-2 control-label">办公电话</label>
+                  <div class="col-sm-10">
+                      <input type="tel" class="form-control" id="Office_Phone" name="Office_Phone" placeholder=""  >
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="email" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-10">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="" >
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Social_Number" class="col-sm-2 control-label">微信、QQ </label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Social_Number" name="Social_Number" placeholder="">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Office_Add" class="col-sm-2 control-label">常驻办公地点</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Office_Add" name="Office_Add" placeholder="" >
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Business_Contacts" class="col-sm-2 control-label">既往业务联系情况</label>
+                  <div class="col-sm-10">
+                      <textarea class="form-control" rows="3" id="Business_Contacts" name="Business_Contacts" placeholder=""></textarea>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Main_Performance" class="col-sm-2 control-label">主要业绩/荣誉阐述</label>
+                  <div class="col-sm-10">
+                  <textarea class="form-control" rows="3" id="Main_Performance" name="Main_Performance" placeholder=""></textarea>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="Docking_Contact" class="col-sm-2 control-label">对接联系人</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="Docking_Contact" name="Docking_Contact" placeholder="" >
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Profile" class="col-sm-2 control-label">个人简介</label>
+                  <div class="col-sm-10">
+                      <textarea class="form-control" rows="3" id="Profile" name="Profile" placeholder=""></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="Remarks" class="col-sm-2 control-label">备注</label>
+                  <div class="col-sm-10">
+                      <textarea class="form-control" rows="3" id="Remarks" name="Remarks" placeholder=""></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label  class="col-sm-2 control-label">头像</label>
+                  <div class="col-sm-10">
+                      <input type="hidden" name="HeadUrl" id="HeadUrl" value=""/>
                       <div style="width: 140px; height: 140px;position: relative">
                           <img  class="img-thumbnail" alt="点击上传" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNGYzYWJlZDlmMyB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE0ZjNhYmVkOWYzIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 140px; height: 140px;">
                           <input type="file" id="headfile" name="headfile" style="width: 140px; height: 140px;position: absolute;top:0;left: 0;opacity:0;" title="点击上传">
@@ -64,8 +141,9 @@
                   <!--</div>-->
               <!--</div>-->
               <div class="form-group">
+
                   <div class="col-sm-offset-2 col-sm-10">
-                      <button class="btn btn-primary" type="submit">保存</button>
+                      <button  type="button"  class="btn btn-primary" id="btn_save" >保存</button>
                   </div>
               </div>
           </form>
@@ -75,10 +153,11 @@
 </div>
 
 <% include commonScript.ejs %>
+<script src="/javascripts/jquery.form.js"></script>
 <script>
     $(function(){
 
-
+     //上传头像
     $("#headfile").change(function(){
 
         var data = new FormData();
@@ -102,14 +181,55 @@
             success: function (data2,type) {
                // var dataObj=eval("("+data2+")");//转换为json对象
                 console.log(data2[0].url);
-                if(data2[0].error==0)
-               $(".img-thumbnail").attr("src","/images/"+data2[0].url)
+                if(data2[0].error==0) {
+                    $(".img-thumbnail").attr("src", "/images/" + data2[0].url);
+                    $("#HeadUrl").val(data2[0].url);
+
+                }
                 else
                 alert("头像上传失败，请重试");
             }
 
         })
     })
+
+
+        $('#btn_save').click(function() {
+            var required=false;
+            $("input[required]").each(function(){
+
+                if($(this).val()=="")
+                {
+                    required=true;
+                    return;
+                }
+            })
+            if(required){
+                alert("请填写必填项");
+            }else {
+                $.ajax({
+                    url: '/add_expert',
+                    data: $('#addexpert-form').serialize(),
+                    type: "POST",
+                    beforeSend: function () {
+
+                       $('#btn_save').html("保存中...").attr("disabled","disabled");
+                    },
+                    success: function (d) {
+                        alert(d[0].msg);
+                        if(d[0].error==0) {
+                            window.location.href="/add_expert";
+                        }else{
+                            $('#btn_save').html("保存").removeAttr("disabled");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
     })
+
+
 </script>
 <% include footer.ejs %>

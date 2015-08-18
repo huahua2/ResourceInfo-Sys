@@ -1,7 +1,8 @@
 
 var logicdata = require('../logic/getdata');
-var formidable = require('formidable')
-fs = require('fs');
+var formidable = require('formidable'),
+    querystring = require("querystring"),
+    fs = require('fs');
 module.exports = function(app, passport) {
 
 
@@ -115,10 +116,36 @@ module.exports = function(app, passport) {
         res.render('add_expert.ejs',
         {
             title:"添加专家",
-            user : req.user
+            user : req.user,
+            message: req.flash('add_msg')
         }
         );
     });
+    //添加专家
+    app.post('/add_expert', function(req, res) {
+
+        //console.log( );
+        //console.log( req.body.UserName);
+        // 设置接收数据编码格式为 UTF-8
+        req.setEncoding('utf-8');
+
+        var returnInfo = [{
+            "error": 1,
+            "msg": "保存失败，请重试"
+        }];
+        logicdata.add_expert(req.body,function(rows){
+
+            if(rows.affectedRows===1){
+
+                returnInfo[0].error= 0, returnInfo[0].msg="保存成功！";
+            }
+            res.send(returnInfo);
+        },function(err){
+            returnInfo[0].msg="保存失败，请重试！"+err;
+            res.send(returnInfo);
+        });
+    });
+
 
     //专家详情页面，拦截除数字id外的字符
     app.get(/^\/expert?(?:\/(\d+))/, isLoggedIn, function(req, res) {
@@ -134,6 +161,7 @@ module.exports = function(app, passport) {
         });
     });
 
+    //上传头像
     app.post('/uploadImg', function(req, res, next) {
         var form = new formidable.IncomingForm();
         form.keepExtensions = true;

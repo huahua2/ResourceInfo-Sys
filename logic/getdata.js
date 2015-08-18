@@ -11,7 +11,7 @@ connection.query('USE ' + dbconfig.database);
 function sel_userlist(successFun){
 
 
-     execQuery( "select * from expert", function(rows){
+     execQuery( "select * from expert",[], function(rows){
 
         if (rows.length) {
             successFun(rows)
@@ -27,7 +27,7 @@ function sel_userlist(successFun){
 function sel_expert_byid(id,successFun){
 
     console.log(id);
-    execQuery( "select * from expert where id ="+id, function(rows){
+    execQuery( "select * from expert where id ="+id,[], function(rows){
 
         if (rows.length) {
             successFun(rows)
@@ -43,7 +43,7 @@ function sel_expert_byid(id,successFun){
 function sel_expert_by_keyword(keyword,successFun){
 
     console.log(keyword);
-    execQuery( "select * from expert where UserName like '%"+keyword+"%' or Post like '%"+keyword+"%'" , function(rows){
+    execQuery( "select * from expert where UserName like '%"+keyword+"%' or Post like '%"+keyword+"%'" , [],function(rows){
 
 
             successFun(rows)
@@ -57,7 +57,7 @@ function sel_expert_by_keyword(keyword,successFun){
 function del_expert_by_id(id,successFun){
 
 
-    execQuery( "delete from expert where id="+id , function(rows){
+    execQuery( "delete from expert where id="+id ,[], function(rows){
         successFun(rows)
     }, function(err){        //error
         console.log("根据关键字查询专家"+err);
@@ -65,11 +65,28 @@ function del_expert_by_id(id,successFun){
 }
 
 
+//添加专家
+function add_expert(obj,successFun,errerFun){
+
+    //console.log(obj);
+    var insertQuery = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    var pamas=[obj.Category, obj.Sub_Category, obj.Company, obj.UserName, obj.Post, obj.Title, obj.Mobile, obj.Office_Phone, obj.Email, obj.Social_Number, obj.Office_Add, obj.Business_Contacts, obj.Main_Performance, obj.Docking_Contact, obj.Profile, obj.Remarks, obj.HeadUrl];
+
+
+    execQuery( insertQuery, pamas , function(rows){
+        successFun(rows)
+    }, function(err){        //error
+        errerFun("添加专家查询专家"+err);
+    });
+}
+
+
 
 
 /** 数据库操作 **/
-function execQuery( sql, successFun, errFun ){
-    connection.query( sql, function(err, rows, fields) {
+function execQuery( sql, Sql_Params, successFun, errFun ){
+
+    connection.query( sql,Sql_Params,function(err, rows, fields) {
         if (err) throw err;
         if( rows.constructor === Array ) {        //查询操作
                 successFun(rows);
@@ -89,7 +106,8 @@ var exports = {
     sel_userlist: sel_userlist,
     sel_expert_byid: sel_expert_byid,
     sel_expert_by_keyword: sel_expert_by_keyword,
-    del_expert_by_id: del_expert_by_id
+    del_expert_by_id: del_expert_by_id,
+    add_expert:add_expert
 };
 
 module.exports = exports;
