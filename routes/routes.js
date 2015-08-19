@@ -6,16 +6,37 @@ var formidable = require('formidable'),
 module.exports = function(app, passport) {
 
 
+    var page={
+        limit:10,
+        num:1
+    };
+    //var search={};
     //inde页面
 	app.get('/', isLoggedIn, function(req, res) {
 
-        logicdata.sel_userlist(function(rows){
+        //查看哪页
+        if(req.query.p){
+            page['num']=(req.query.p<1) ||  (req.query.p==undefined) ? 1 : req.query.p;
+        }
+        var model = {
+            //search:search,
+            //columns:'name alias director publish images.coverSmall create_date type deploy',
+            page:page
+        };
+        logicdata.sel_userlist(model,function(rows,totalCount){
+
+            var total=totalCount;
+            var pageCount=Math.ceil(total / page.limit);
+            page['pageCount']= pageCount;
+            page['size']=total;
+            page['numberOf']=pageCount>5?5:pageCount;
 
                 res.render('index.ejs', {
                     title: '智库资源信息系统',
                     user : req.user, // get the user out of session and pass to template
                     datos: rows,
-                    keyword: rows.length > 0 ? "专家列表" : "暂无数据"
+                    keyword: rows.length > 0 ? "专家列表" : "暂无数据",
+                    page:page
                 });
         });
 
@@ -29,7 +50,8 @@ module.exports = function(app, passport) {
                 title: '智库资源信息系统',
                 user : req.user, // get the user out of session and pass to template
                 datos: rows,
-                keyword:"查到关键字 :" +"“"+ req.params.keyword +"”" +rows.length +" 条记录"
+                keyword:"查到关键字 :" +"“"+ req.params.keyword +"”" +rows.length +" 条记录",
+                page :null
             });
         });
 

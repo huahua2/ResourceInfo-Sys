@@ -150,23 +150,16 @@
 </div>
 
 <% include commonScript.ejs %>
-<script src="/javascripts/jquery.form.js"></script>
 <script>
     $(function(){
 
      //上传头像
     $("#headfile").change(function(){
-
         var data = new FormData();
-
         var files = $("#headfile")[0].files;
-
         if(files){
-
             data.append("file", files[0]);
-
         }
-
         $.ajax({
 
             type: 'post',

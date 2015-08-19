@@ -11,16 +11,37 @@ connection.query('USE ' + dbconfig.database);
 
 
 //获取专家列表
-function sel_userlist(successFun){
+function sel_userlist(obj,successFun){
 
+    //var q=obj.search||{}
+    var pageNumber=obj.page.num||1;
+    var resultsPerPage=obj.page.limit||10;
 
-     execQuery( "select * from expert order by OperationTime desc",[], function(rows){
+    var skipFrom = (pageNumber * resultsPerPage) - resultsPerPage;
+   var sql="SELECT * FROM expert WHERE  id >=(SELECT id FROM expert   ORDER BY id LIMIT ?, 1) LIMIT ?";
 
-            successFun(rows)
+    execQuery(sql,[skipFrom,resultsPerPage], function(rows){
+
+        expertCount(function(count){
+            successFun(rows,count)
+        })
 
     }, function(err){        //error
         console.log("专家列表查询失败"+err);
     });
+}
+//获取专家列表总数
+function expertCount(successFun){
+
+    execQuery("SELECT COUNT(id) AS COUNT FROM expert WHERE 1=1",[], function(rows){
+
+        console.log(rows[0].COUNT);
+        successFun(rows[0].COUNT)
+
+    }, function(err){        //error
+        console.log("专家列表查询失败"+err);
+    });
+
 }
 
 //根据id获取专家详情
