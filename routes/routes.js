@@ -117,7 +117,10 @@ module.exports = function(app, passport) {
         {
             title:"添加专家",
             user : req.user,
-            message: req.flash('add_msg')
+            message: req.flash('add_msg'),
+            expert: null,
+            isEdit:0
+
         }
         );
     });
@@ -154,7 +157,7 @@ module.exports = function(app, passport) {
 
             res.render('expert.ejs', {
                 title: '专家详情',
-                user : req.user, // get the user out of session and pass to template
+                user : req.user,
                 expert: rows[0],
                 id:req.params[0]
             });
@@ -206,6 +209,20 @@ module.exports = function(app, passport) {
 
     });
 
+    //编辑专家
+    app.get(/^\/edit?(?:\/(\d+))/, isLoggedIn, function(req, res) {
+
+        logicdata.sel_expert_byid(req.params[0],function(rows){
+
+            res.render('add_expert.ejs', {
+                title: '编辑专家',
+                user : req.user,
+                expert: rows[0],
+                id:req.params[0],
+                isEdit: req.params[0]
+            });
+        });
+    });
 };
 
 // route middleware to make sure

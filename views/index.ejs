@@ -38,10 +38,10 @@
           <tr>
               <td><%= k+1 %></td>
           <td><%= v.UserName %></td>
-          <td style="max-width:120px;overflow:hidden"><%=v.Post%></td>
-          <td  style="max-width:120px;overflow:hidden"><%= v.Title%></td>
+          <td style="max-width:150px;overflow:hidden;padding-right:30px"><%=v.Post%></td>
+          <td  style="max-width:150px;overflow:hidden"><%= v.Title%></td>
           <td><%= v.Mobile %></td>
-          <td><%= v.Email %></td>
+          <td style="max-width:80px;overflow:hidden;word-break:break-all;padding-right:20px"><%= v.Email %></td>
           <td style="max-width:120px;overflow:hidden"><%= v.Company%></td>
           <td><a class="btn-link" href="/expert/<%= v.id %>">更多</a><br/>
               <a class="btn-link" href="/edit/<%= v.id %>">编辑</a><br/>

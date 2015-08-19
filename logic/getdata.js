@@ -65,15 +65,21 @@ function del_expert_by_id(id,successFun){
 //添加专家
 function add_expert(obj,successFun,errerFun){
 
-    //console.log(obj);
-    var insertQuery = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    //添加
+    var sql = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    //编辑
+    if(obj.isEdit!=0)
+
+        sql = "update expert set Category=?,Sub_Category=?,Company=?,UserName=?,Post=?,Title=?,Mobile=?,Office_Phone=?,Email=?,Social_Number=?,Office_Add=?,Business_Contacts=?,Main_Performance=?,Docking_Contact=?,Profile=?,Remarks=?,HeadUrl=? where id="+ obj.isEdit ;
+
     var pamas=[obj.Category, obj.Sub_Category, obj.Company, obj.UserName, obj.Post, obj.Title, obj.Mobile, obj.Office_Phone, obj.Email, obj.Social_Number, obj.Office_Add, obj.Business_Contacts, obj.Main_Performance, obj.Docking_Contact, obj.Profile, obj.Remarks, obj.HeadUrl];
 
 
-    execQuery( insertQuery, pamas , function(rows){
+    execQuery( sql, pamas , function(rows){
         successFun(rows)
     }, function(err){        //error
-        errerFun("添加专家查询专家"+err);
+        errerFun(err);
     });
 }
 
@@ -94,6 +100,7 @@ function execQuery( sql, Sql_Params, successFun, errFun ){
                 successFun(rows);
             } else {
                 errFun(err);
+
             }
         }
     });
