@@ -1,6 +1,9 @@
 
 var dbconfig = require('../config/database');
 var mysql = require('mysql');
+var moment = require('moment')
+
+
 var connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);
@@ -11,7 +14,7 @@ connection.query('USE ' + dbconfig.database);
 function sel_userlist(successFun){
 
 
-     execQuery( "select * from expert",[], function(rows){
+     execQuery( "select * from expert order by OperationTime desc",[], function(rows){
 
             successFun(rows)
 
@@ -65,15 +68,16 @@ function del_expert_by_id(id,successFun){
 //添加专家
 function add_expert(obj,successFun,errerFun){
 
+    console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'))
     //添加
-    var sql = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    var sql = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl,OperationTime) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     //编辑
     if(obj.isEdit!=0)
 
-        sql = "update expert set Category=?,Sub_Category=?,Company=?,UserName=?,Post=?,Title=?,Mobile=?,Office_Phone=?,Email=?,Social_Number=?,Office_Add=?,Business_Contacts=?,Main_Performance=?,Docking_Contact=?,Profile=?,Remarks=?,HeadUrl=? where id="+ obj.isEdit ;
+        sql = "update expert set Category=?,Sub_Category=?,Company=?,UserName=?,Post=?,Title=?,Mobile=?,Office_Phone=?,Email=?,Social_Number=?,Office_Add=?,Business_Contacts=?,Main_Performance=?,Docking_Contact=?,Profile=?,Remarks=?,HeadUrl=?,OperationTime=? where id="+ obj.isEdit ;
 
-    var pamas=[obj.Category, obj.Sub_Category, obj.Company, obj.UserName, obj.Post, obj.Title, obj.Mobile, obj.Office_Phone, obj.Email, obj.Social_Number, obj.Office_Add, obj.Business_Contacts, obj.Main_Performance, obj.Docking_Contact, obj.Profile, obj.Remarks, obj.HeadUrl];
+    var pamas=[obj.Category, obj.Sub_Category, obj.Company, obj.UserName, obj.Post, obj.Title, obj.Mobile, obj.Office_Phone, obj.Email, obj.Social_Number, obj.Office_Add, obj.Business_Contacts, obj.Main_Performance, obj.Docking_Contact, obj.Profile, obj.Remarks, obj.HeadUrl,moment(new Date()).format('YYYY-MM-DD HH:mm:ss')];
 
 
     execQuery( sql, pamas , function(rows){

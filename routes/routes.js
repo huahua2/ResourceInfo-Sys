@@ -117,7 +117,7 @@ module.exports = function(app, passport) {
         {
             title:"添加专家",
             user : req.user,
-            message: req.flash('add_msg'),
+            //message: req.flash('add_msg'),
             expert: null,
             isEdit:0
 
