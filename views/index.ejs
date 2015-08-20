@@ -8,7 +8,16 @@
       <% include left.ejs %>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <h2 class="sub-header"><%= keyword %></h2>
+      <h2 class="sub-header" style="position: relative;"><%= keyword %>
+
+          <a href="javascript:;" style="position:absolute;right:10px;font-size:16px;top:10px;cursor: pointer;">
+              <input id="excelfile" name="excelfile" type="file" style="width:90px;height:20px;position: absolute;z-index: 99;  opacity: 0;display: block;
+  cursor: pointer; " />
+          <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true" style="cursor: pointer;"></span>
+          <span id="inport">导入Excel</span>
+          </a>
+      </h2>
+
       <div class="table-responsive">
           <style>
               .table>tbody>tr>td{
@@ -72,7 +81,7 @@
 <% include commonScript.ejs %>
 
 <style>
-      .pagination{margin:0 auto; display:block;width:370px}
+      .pagination{margin:0 auto; display:block;width:419px}
       .pagination a{  color: #0A79D8;}
     .pagination ul{*zoom:1;margin-left:0;margin-bottom:0;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);-moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
     .pagination ul>li{display:inline;}
@@ -105,7 +114,36 @@
 <script>
     $(function(){
 
+        //上传头像
+        $("#excelfile").change(function(){
+            var data = new FormData();
+            var files = $("#excelfile")[0].files;
+            if(files){
+                data.append("file", files[0]);
+            }
+            $.ajax({
 
+                type: 'post',
+                dataType: 'json',
+                url:'/excel',
+                data : data,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                $('#inport').html("导入中...");
+            },
+                success: function (data2) {
+                    $('#inport').html("导入Excel");
+                    if(data2[0].error==0) {
+                        alert("成功导入"+data2[0].success+"条记录");
+                        window.location.href="/";
+                    }
+                    else
+                        alert("导入失败，请重试");
+                }
+
+            })
+        })
         //分页功能
         var page=$('#page1');
         var options = {

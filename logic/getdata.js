@@ -89,7 +89,7 @@ function del_expert_by_id(id,successFun){
 //添加专家
 function add_expert(obj,successFun,errerFun){
 
-    console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'))
+   // console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'))
     //添加
     var sql = "INSERT INTO expert(Category,Sub_Category,Company,UserName,Post,Title,Mobile,Office_Phone,Email,Social_Number,Office_Add,Business_Contacts,Main_Performance,Docking_Contact,Profile,Remarks,HeadUrl,OperationTime) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 

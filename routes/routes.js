@@ -150,7 +150,7 @@ module.exports = function(app, passport) {
     app.post('/add_expert', function(req, res) {
 
         //console.log( );
-        //console.log( req.body.UserName);
+        console.log( req.body);
         // 设置接收数据编码格式为 UTF-8
         req.setEncoding('utf-8');
 
@@ -245,6 +245,102 @@ module.exports = function(app, passport) {
             });
         });
     });
+
+    //导入功能
+    app.post('/excel',function(req,res){
+
+        var obj={
+                isEdit : 0,
+                Category:"",
+                Sub_Category:"",
+                Company:"",
+                UserName:"",
+                Post:"",
+                Title:"",
+                Mobile:"",
+                Office_Phone:"",
+                Email:"",
+                Social_Number:"",
+                Office_Add:"",
+                Business_Contacts:"",
+                Main_Performance:"",
+                Docking_Contact:"",
+                Profile:"",
+                Remarks:"",
+                HeadUrl:""
+        }
+
+
+        var form = new formidable.IncomingForm();
+        form.keepExtensions = true;
+        //  form.uploadDir = __dirname + '/../public/images';
+        form.uploadDir = "./public/excel/";//改变临时目录
+
+        form.parse(req, function(error, fields, files) {
+
+            var info = [{
+                "success": 0,
+                "error": 0,
+            }];
+            for (var key in files) {
+                var file = files[key];
+
+                var xlsx = require("node-xlsx");
+                //读取excel
+                var list = xlsx.parse(file.path);
+                //第一个工作表的数据
+                var data = list[0].data;
+
+                //console.log(data.length);
+                for(var i=2;i<=data.length-2;i++){
+
+
+                    //for(var k=1;k<=16;k++){
+                    //
+                    //    if(data[i][k]==undefined)
+                    //    data[i][k]="";
+                    //}
+                   // console.log(data[i]);
+                    if(data[i].length>1) {
+                        info[0].success=info[0].success+1;
+                        obj.Category = data[i][1];
+                        obj.Sub_Category = data[i][2];
+                        obj.Company = data[i][3];
+                        obj.UserName = data[i][4];
+                        obj.Post = data[i][5];
+                        obj.Title = data[i][6];
+                        obj.Mobile = data[i][7];
+                        obj.Office_Phone = data[i][8];
+                        obj.Email = data[i][9];
+                        obj.Social_Number = data[i][10];
+                        obj.Office_Add = data[i][11];
+                        obj.Business_Contacts = data[i][12];
+                        obj.Main_Performance = data[i][13];
+                        obj.Docking_Contact = data[i][14];
+                        obj.Profile = data[i][15];
+                        obj.Remarks = data[i][16];
+                    }else{
+                        continue;
+                    }
+
+                    logicdata.add_expert(obj,function(rows){
+                        //if(rows.affectedRows===1){
+                        //
+                        //}
+
+                        //res.send(returnInfo);
+                    },function(err){
+                        info[0].error=1;
+                        res.send(info);
+                        //  continue;
+                    });
+                }
+            }
+            res.send(info);
+        })
+
+
+    })
 };
 
 // route middleware to make sure

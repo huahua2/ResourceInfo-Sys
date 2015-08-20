@@ -3,4 +3,5 @@ db.json
 *.log
 node_modules/
 public/images/
+public/excel/
 .idea*/
