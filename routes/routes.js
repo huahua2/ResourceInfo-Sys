@@ -1,4 +1,4 @@
-
+﻿
 var logicdata = require('../logic/getdata');
 var formidable = require('formidable'),
     querystring = require("querystring"),
@@ -32,10 +32,10 @@ module.exports = function(app, passport) {
             page['numberOf']=pageCount>5?5:pageCount;
 
                 res.render('index.ejs', {
-                    title: '智库资源信息系统',
+                    title: '蓝海智库系统',
                     user : req.user, // get the user out of session and pass to template
                     datos: rows,
-                    keyword: rows.length > 0 ? "专家列表" : "暂无数据",
+                    keyword: rows.length > 0 ? "信息列表" : "暂无数据",
                     page:page
                 });
         });
@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
         logicdata.sel_expert_by_keyword(req.params.keyword,function(rows){
 
             res.render('index.ejs', {
-                title: '智库资源信息系统',
+                title: '蓝海智库系统',
                 user : req.user, // get the user out of session and pass to template
                 datos: rows,
                 keyword:"查到关键字 :" +"“"+ req.params.keyword +"”" +rows.length +" 条记录",
@@ -76,7 +76,7 @@ module.exports = function(app, passport) {
 	// show the login form
 	app.get('/login', function(req, res) {
 
-		res.render('login.ejs', { title: '登录-智库资源信息系统',message: req.flash('loginMessage') });
+		res.render('login.ejs', { title: '登录-蓝海智库系统',message: req.flash('loginMessage') });
 		// render the page and pass in any flash data if it exists
 		//res.render('login.ejs', {  });
 	});
